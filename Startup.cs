@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace CoreDemo
 {
@@ -14,7 +15,7 @@ namespace CoreDemo
             services.AddCors();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env) 
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory logger) 
         {
             app.UseErrorHandling();
 
@@ -25,6 +26,8 @@ namespace CoreDemo
                 options.AllowAnyOrigin();
                 options.AllowCredentials();
             });
+
+            logger.AddConsole();
 
             app.UseRewriter(new RewriteOptions()
                 .AddRewrite("rewrite", "foo/", true)
