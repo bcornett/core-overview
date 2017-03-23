@@ -7,8 +7,7 @@ namespace CoreDemo
     {
         public void Configure(IApplicationBuilder app) 
         {
-            app.UseStaticFiles();
-            app.UseDefaultFiles();
+            app.UseFileServer(enableDirectoryBrowsing: true);
 
             app.Run(context =>
             {
