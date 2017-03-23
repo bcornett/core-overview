@@ -13,6 +13,8 @@ namespace CoreDemo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors();
+
+            services.AddMvc();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory logger) 
@@ -35,10 +37,7 @@ namespace CoreDemo
 
             app.UseFileServer(enableDirectoryBrowsing: true);
 
-            app.Run(async context => 
-            {
-                await context.Response.WriteAsync("Hello World from the web!");
-            });
+            app.UseMvc();
         }
     }
 }
