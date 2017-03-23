@@ -7,6 +7,9 @@ namespace CoreDemo
     {
         public void Configure(IApplicationBuilder app) 
         {
+            app.UseStaticFiles();
+            app.UseDefaultFiles();
+
             app.Run(context =>
             {
                 return context.Response.WriteAsync("Hello World from the web!");
