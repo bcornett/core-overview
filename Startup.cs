@@ -1,3 +1,4 @@
+using CoreDemo.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -9,10 +10,7 @@ namespace CoreDemo
     {
         public void Configure(IApplicationBuilder app, IHostingEnvironment env) 
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            app.UseErrorHandling();
 
             app.UseRewriter(new RewriteOptions()
                 .AddRewrite("rewrite", "foo/", true)
@@ -20,7 +18,10 @@ namespace CoreDemo
 
             app.UseFileServer(enableDirectoryBrowsing: true);
 
-            app.Run(context => context.Response.WriteAsync("Hello World from the web!"));
+            app.Run(async context => 
+            {
+                await context.Response.WriteAsync("Hello World from the web!");
+            });
         }
     }
 }
