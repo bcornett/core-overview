@@ -8,6 +8,7 @@ namespace CoreDemo
         static void Main(string[] args)
         {
             new WebHostBuilder()
+                .UseEnvironment("Development")
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseStartup<Startup>()
