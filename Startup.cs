@@ -1,7 +1,7 @@
-using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace CoreDemo
 {
@@ -14,14 +14,13 @@ namespace CoreDemo
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseRewriter(new RewriteOptions()
+                .AddRewrite("rewrite", "foo/", true)
+                .AddRedirect("redirect", "index.html"));
+
             app.UseFileServer(enableDirectoryBrowsing: true);
 
-            app.Run(context =>
-            {
-                throw new Exception("Nah.");
-
-                return context.Response.WriteAsync("Hello World from the web!");
-            });
+            app.Run(context => context.Response.WriteAsync("Hello World from the web!"));
         }
     }
 }
